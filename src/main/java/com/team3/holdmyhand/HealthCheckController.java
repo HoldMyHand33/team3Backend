@@ -11,7 +11,7 @@ public class HealthCheckController {
 
     @GetMapping
     public ResponseEntity<String> test() {
-        System.out.println("성공");
+        System.out.println("성공1234");
         return ResponseEntity.ok("테스트1234");
     }
 }
