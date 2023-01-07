@@ -1,15 +1,10 @@
 package com.team3.holdmyhand.domain.member.entity;
 
 import com.team3.holdmyhand.global.config.entity.BaseTimeEntity;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Entity
@@ -31,12 +26,20 @@ public class Member extends BaseTimeEntity {
 
     private String profileImg;
 
+    private String code;
+
     private String reconciliationDate;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Member parent;
+
+    @OneToMany(mappedBy = "parent", orphanRemoval = true)
+    private List<Member> memberList;
 
     @Builder
     public Member(Long memberId, String nickname, String password,
                   String email, String phoneNum, String status, String profileImg,
-                  String  reconciliationDate) {
+                  String code,
+                  String reconciliationDate, Member parent, List<Member> memberList) {
         this.memberId = memberId;
         this.nickname = nickname;
         this.password = password;
@@ -44,11 +47,16 @@ public class Member extends BaseTimeEntity {
         this.phoneNum = phoneNum;
         this.status = status;
         this.profileImg = profileImg;
+        this.code = code;
         this.reconciliationDate = reconciliationDate;
+        this.parent = parent;
+        this.memberList = memberList;
     }
     public void updateReconciliationDate(String reconciliationDate) {
         this.reconciliationDate = reconciliationDate;
     }
 
-
+    public void updateParent(Member parent) {
+        this.parent = parent;
+    }
 }

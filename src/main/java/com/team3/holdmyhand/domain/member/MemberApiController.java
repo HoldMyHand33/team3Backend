@@ -1,9 +1,7 @@
 package com.team3.holdmyhand.domain.member;
 
-import com.team3.holdmyhand.domain.member.dto.LoginDto;
-import com.team3.holdmyhand.domain.member.dto.MemberRequestDto;
-import com.team3.holdmyhand.domain.member.dto.MemberResponseDto;
-import com.team3.holdmyhand.domain.member.dto.ReconciliationRequestDto;
+import com.team3.holdmyhand.domain.member.dto.*;
+import com.team3.holdmyhand.domain.member.entity.Member;
 import com.team3.holdmyhand.global.CommonApiResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -14,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.text.ParseException;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -49,5 +48,20 @@ public class MemberApiController {
             @ApiIgnore Authentication authentication,
             @RequestBody ReconciliationRequestDto reconciliationRequestDto) throws ParseException {
         return ResponseEntity.ok(CommonApiResponse.of(memberService.modReconciliationDate(authentication.getName(), reconciliationRequestDto)));
+    }
+
+    @PatchMapping("friends")
+    @ApiOperation(value = "친구추가")
+    public ResponseEntity<CommonApiResponse<MemberResponseDto>> makeFreind(
+            @ApiIgnore Authentication authentication,
+            @RequestBody CodeRequest codeRequest) throws ParseException {
+        return ResponseEntity.ok(CommonApiResponse.of(memberService.makeFriend(authentication.getName(), codeRequest)));
+    }
+
+    @GetMapping("friends")
+    @ApiOperation(value = "친구보기")
+    public ResponseEntity<CommonApiResponse<List<MemberResponseDto>>> showFriends(
+            @ApiIgnore Authentication authentication) {
+        return ResponseEntity.ok(CommonApiResponse.of(memberService.showFriends(authentication.getName())));
     }
 }
