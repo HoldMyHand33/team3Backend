@@ -18,13 +18,19 @@ public class PostDiary {
     @JoinColumn(name="memberId")
     private Member member;
 
+
+    @ManyToOne(fetch= FetchType.LAZY) //N:1단방향
+    @JoinColumn(name="partnerId")
+    private Member partner;
+
     @ManyToOne(fetch=FetchType.LAZY) //N:1단방향
     @JoinColumn(name="diaryId")
     private Diary diary;
 
     @Builder
-    public PostDiary(Member member,Diary diary){
+    public PostDiary(Member member,Member partner,Diary diary){
         this.member=member;
+        this.partner=partner;
         this.diary=diary;
     }
 

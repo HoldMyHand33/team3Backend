@@ -6,9 +6,10 @@ import lombok.Data;
 
 public class PostDiaryReq {
 
-    private Long memberID;
+
     private Long partnerID;
     private String diaryText;
     private String diaryImageURL;
+    private int makeUpDay; //화해한지 몇일째인지
 
 }

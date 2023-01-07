@@ -1,5 +1,6 @@
 package com.team3.holdmyhand.domain.diary.entity;
 
+import com.team3.holdmyhand.domain.question.entity.Question;
 import com.team3.holdmyhand.global.config.entity.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,18 +21,18 @@ public class Diary extends BaseTimeEntity {
     @OneToMany(mappedBy="diary")
     private List<PostDiary> postDiaryList = new ArrayList<>();
 
-    //@ManyToOne
-   // private Question question;
+    @ManyToOne
+    private Question question;
 
     private String diaryText;
 
     private String diaryImgURL;
 
     @Builder
-    public Diary (Long diaryId, List<PostDiary> postDiaryList,
-                  String diaryText,String diaryImgURL){
+    Diary(Long diaryId,List<PostDiary> postDiaryList,String diaryText,String diaryImgURL,Question question) {
         this.diaryId = diaryId;
         this.postDiaryList = postDiaryList;
+        this.question = question;
         this.diaryText = diaryText;
         this.diaryImgURL = diaryImgURL;
     }
