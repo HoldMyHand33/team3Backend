@@ -1,6 +1,6 @@
 package com.team3.holdmyhand;
 
-import com.team3.holdmyhand.global.config.CommonApiResponse;
+import com.team3.holdmyhand.global.CommonApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
