@@ -5,12 +5,14 @@ import com.team3.holdmyhand.domain.question.entity.Question;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.management.QueryEval;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class GetQuestionRes {
