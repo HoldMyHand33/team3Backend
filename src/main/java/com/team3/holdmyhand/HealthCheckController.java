@@ -1,6 +1,6 @@
 package com.team3.holdmyhand;
 
-import com.team3.holdmyhand.global.config.CommonApiResponse;
+import com.team3.holdmyhand.global.CommonApiResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;

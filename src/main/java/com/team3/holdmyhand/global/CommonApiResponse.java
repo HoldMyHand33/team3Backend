@@ -1,4 +1,4 @@
-package com.team3.holdmyhand.global.config;
+package com.team3.holdmyhand.global;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
