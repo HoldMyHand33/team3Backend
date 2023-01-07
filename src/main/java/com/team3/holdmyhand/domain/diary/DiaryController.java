@@ -1,22 +1,24 @@
 package com.team3.holdmyhand.domain.diary;
 
+import com.team3.holdmyhand.domain.diary.dto.GetDiaryDetailReq;
 import com.team3.holdmyhand.domain.diary.dto.GetMemberReq;
 import com.team3.holdmyhand.domain.diary.dto.PostDiaryReq;
 import com.team3.holdmyhand.domain.diary.dto.PostDiaryRes;
 import com.team3.holdmyhand.domain.member.MemberRepository;
 import com.team3.holdmyhand.domain.member.entity.Member;
 import com.team3.holdmyhand.global.CommonApiResponse;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
 
+@Api(tags="교환하자")
 @RestController
+@RequestMapping("api/diary")
 public class DiaryController {
 
     private final DiaryService diaryService;
@@ -28,11 +30,19 @@ public class DiaryController {
     }
 
     // 일기 쓰기
-    @PostMapping("/diary")
-    public ResponseEntity<CommonApiResponse<PostDiaryRes>> postDiary(@RequestBody PostDiaryReq postDiaryReq){
+    @ApiOperation(value = "일기 쓰기")
+    @PostMapping("")
+    public ResponseEntity<CommonApiResponse<PostDiaryRes>> postDiary(@RequestBody PostDiaryReq postDiaryReq,@ApiIgnore Authentication authentication){
 
-        PostDiaryRes postDiaryRes = diaryService.postDiary(postDiaryReq);
+
+        String userEmail= authentication.getName();
+        //optional 예외처리
+        Member member=memberRepository.findByEmail(userEmail).orElseThrow();
+
+        PostDiaryRes postDiaryRes=diaryService.postDiary(member.getMemberId(),postDiaryReq);
+
         return ResponseEntity.ok(CommonApiResponse.of(postDiaryRes));
+        ///
 
 
 
@@ -40,7 +50,10 @@ public class DiaryController {
     }
 
     // 친구목록 조회하기 (나를 제외한 친구목록)
-    @GetMapping("/diary/user")
+
+    @ApiOperation(value = "일기목록 조회하기")
+    @GetMapping("/user")
+
     public ResponseEntity<CommonApiResponse<List<GetMemberReq>>>getUserList(
             @ApiIgnore Authentication authentication
     ){
@@ -58,7 +71,20 @@ public class DiaryController {
     }
 
 
-    // 일기 목록 조회하기
+    // 일기 상세
+    @ApiOperation(value = "일기 상세조회")
+    @GetMapping("/day/{day}/partner/{partnerEmail}")
+    public ResponseEntity<CommonApiResponse<GetDiaryDetailReq>>getDiaryDetail(@PathVariable("day")int day,@PathVariable("partnerEmail")String partnerEmail,@ApiIgnore Authentication authentication){
 
-    // 일기 확인하기
+        String userEmail= authentication.getName();
+        //optional 예외처리
+        Member member=memberRepository.findByEmail(userEmail).orElseThrow();
+        Long memberId=member.getMemberId();
+        Member partner=memberRepository.findByEmail(partnerEmail).orElseThrow();
+        Long partnerId=partner.getMemberId();
+        GetDiaryDetailReq getDiaryDetailReq=diaryService.getDiaryDetail(day,memberId,partnerId);
+
+        return ResponseEntity.ok(CommonApiResponse.of(getDiaryDetailReq));
+    }
+
 }

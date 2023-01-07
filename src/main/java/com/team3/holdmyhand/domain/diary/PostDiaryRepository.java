@@ -1,6 +1,8 @@
 package com.team3.holdmyhand.domain.diary;
 
+import com.team3.holdmyhand.domain.diary.entity.Diary;
 import com.team3.holdmyhand.domain.diary.entity.PostDiary;
+import com.team3.holdmyhand.domain.member.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -13,5 +15,10 @@ public interface PostDiaryRepository extends JpaRepository<PostDiary, Long> {
 
     @Query("select pd.member.memberId from PostDiary pd where pd.postDiaryId = :idx")
     public List<PostDiary> findByIdList(@Param("idx") Long idx);
+
+    @Query("select pd.diary from PostDiary pd where pd.member.memberId= :memberId and pd.partner.memberId= :partnerId")
+    public Diary findDiaryByMemberId(@Param("memberId")Long memberId,@Param("partnerId")Long partnerId);
+
+
 
 }

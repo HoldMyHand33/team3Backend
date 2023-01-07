@@ -1,9 +1,12 @@
 package com.team3.holdmyhand.domain.member.entity;
 
+import com.team3.holdmyhand.domain.diary.entity.Diary;
+import com.team3.holdmyhand.domain.diary.entity.PostDiary;
 import com.team3.holdmyhand.global.config.entity.BaseTimeEntity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -34,6 +37,12 @@ public class Member extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "parent", orphanRemoval = true)
     private List<Member> memberList;
+
+    @OneToMany(mappedBy="member")
+    private List<PostDiary> diaryList=new ArrayList<>();
+
+    @OneToMany(mappedBy="partner")
+    private List<PostDiary> diaryList2=new ArrayList<>();
 
     @Builder
     public Member(Long memberId, String nickname, String password,
