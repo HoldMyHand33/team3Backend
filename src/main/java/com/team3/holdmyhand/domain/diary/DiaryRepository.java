@@ -23,6 +23,15 @@ public interface DiaryRepository extends JpaRepository<Diary, Long> {
      List<Member> findMemberList(@Param("userIdx")Long userIdx);
 
 
+     @Query(value="select d.diaryText from Diary d join PostDiary pd on pd.diary.diaryId=d.diaryId where d.question.questionDay=:day and pd.member.memberId=:memberIdx and pd.partner.memberId=:partnerIdx")
+     String findDiaryByMemberAndQuestion(@Param("day")int day,@Param("memberIdx")Long memberIdx,@Param("partnerIdx")Long partnerIdx);
+
+
+
+
+
+
+
 
 
 
