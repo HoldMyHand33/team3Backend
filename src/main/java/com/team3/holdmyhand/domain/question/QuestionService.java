@@ -41,15 +41,14 @@ public class QuestionService {
                     .orElseThrow(() -> new BadRequestException(ErrorCode.MEMBER_NOT_FOUND));
 
             List<Question> question = questionRepository.findQuestionsBy();
-            List<GetQuestionRes> getQuestionRes = question.stream()
+
+            return question.stream()
                     .map(d -> GetQuestionRes.builder()
                             .memberId(member.getMemberId())
                             .questionId(d.getQuestionId())
                             .questionDay(d.getQuestionDay())
                             .questionText(d.getQuestionText()).build())
                     .collect(Collectors.toList());
-
-            return getQuestionRes;
         } catch(NoSuchElementException noSuchElementException) {
             throw new NotFoundException(noSuchElementException.getMessage());
         }

@@ -1,6 +1,8 @@
 package com.team3.holdmyhand.domain.makeup;
 
 import com.team3.holdmyhand.domain.makeup.dto.GetCommentRes;
+import com.team3.holdmyhand.domain.makeup.dto.GetTargetsRes;
+import com.team3.holdmyhand.domain.makeup.dto.GetTypesRes;
 import com.team3.holdmyhand.global.CommonApiResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.annotations.ApiIgnore;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/makeups")
@@ -20,15 +24,38 @@ import springfox.documentation.annotations.ApiIgnore;
 public class MakeUpController {
     private final MakeUpService makeUpService;
 
-    /* 화해하자 멘트 받아오기 API */
-    @GetMapping("/{targetId}/{typeId}")
-    @ApiOperation(value = "대상, 유형별 화해 멘트 받아오기")
-    public ResponseEntity<CommonApiResponse<GetCommentRes>> getComment(
-        @ApiIgnore Authentication authentication,
-        @PathVariable int targetId, @PathVariable int typeId) {
+    /* 대상 카테고리 불러오기 */
+    @GetMapping("/target")
+    @ApiOperation(value = "대상 카테고리 받아오기")
+    public ResponseEntity<CommonApiResponse<List<GetTargetsRes>>> getTargets (
+            @ApiIgnore Authentication authentication) {
         // 현재 로그인 되어 있는 유저 정보 가져오기
         String email = authentication.getName();
 
-        return ResponseEntity.ok(CommonApiResponse.of(makeUpService.getComment(email, targetId, typeId)));
+        return ResponseEntity.ok(CommonApiResponse.of(makeUpService.getTargets(email)));
+    }
+
+    /* 유형 카테고리 불러오기 */
+    @GetMapping("/type/{targetId}")
+    @ApiOperation(value = "유형 카테고리 받아오기")
+    public ResponseEntity<CommonApiResponse<List<GetTypesRes>>> getTypes (
+            @ApiIgnore Authentication authentication,
+            @PathVariable int targetId) {
+        // 현재 로그인 되어 있는 유저 정보 가져오기
+        String email = authentication.getName();
+
+        return ResponseEntity.ok(CommonApiResponse.of(makeUpService.getTypes(email, targetId)));
+    }
+
+    /* 화해 멘트 받아오기 API */
+    @GetMapping("/{typeId}")
+    @ApiOperation(value = "대상, 유형별 화해 멘트 받아오기")
+    public ResponseEntity<CommonApiResponse<GetCommentRes>> getComment(
+        @ApiIgnore Authentication authentication,
+        @PathVariable int typeId) {
+        // 현재 로그인 되어 있는 유저 정보 가져오기
+        String email = authentication.getName();
+
+        return ResponseEntity.ok(CommonApiResponse.of(makeUpService.getComment(email, typeId)));
     }
 }
