@@ -9,5 +9,5 @@ public class HoldMyHandApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(HoldMyHandApplication.class, args);
 	}
-
+	// 테스트 커밋
 }
