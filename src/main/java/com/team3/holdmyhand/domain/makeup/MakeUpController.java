@@ -20,15 +20,17 @@ import springfox.documentation.annotations.ApiIgnore;
 public class MakeUpController {
     private final MakeUpService makeUpService;
 
-    /* 화해하자 멘트 받아오기 API */
-    @GetMapping("/{targetId}/{typeId}")
+    /* 화해 카테고리 불러오기 */
+
+    /* 화해 멘트 받아오기 API */
+    @GetMapping("/{typeId}")
     @ApiOperation(value = "대상, 유형별 화해 멘트 받아오기")
     public ResponseEntity<CommonApiResponse<GetCommentRes>> getComment(
         @ApiIgnore Authentication authentication,
-        @PathVariable int targetId, @PathVariable int typeId) {
+        @PathVariable int typeId) {
         // 현재 로그인 되어 있는 유저 정보 가져오기
         String email = authentication.getName();
 
-        return ResponseEntity.ok(CommonApiResponse.of(makeUpService.getComment(email, targetId, typeId)));
+        return ResponseEntity.ok(CommonApiResponse.of(makeUpService.getComment(email, typeId)));
     }
 }

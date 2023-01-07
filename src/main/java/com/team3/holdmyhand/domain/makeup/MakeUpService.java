@@ -1,7 +1,7 @@
 package com.team3.holdmyhand.domain.makeup;
 
 import com.team3.holdmyhand.domain.makeup.dto.GetCommentRes;
-import com.team3.holdmyhand.domain.makeup.entity.Comment;
+import com.team3.holdmyhand.domain.makeup.entity.Type;
 import com.team3.holdmyhand.domain.member.MemberRepository;
 import com.team3.holdmyhand.domain.member.entity.Member;
 import com.team3.holdmyhand.global.error.ErrorCode;
@@ -20,12 +20,12 @@ public class MakeUpService {
     private final MemberRepository memberRepository;
 
     @Transactional
-    public GetCommentRes getComment(String email, int targetId, int typeId) {
+    public GetCommentRes getComment(String email, int typeId) {
         try {
             Member member = memberRepository.findByEmail(email)
                     .orElseThrow(() -> new BadRequestException(ErrorCode.MEMBER_NOT_FOUND));
 
-            Optional<Comment> comment = makeUpRepository.findCommentByTargetIdAndTypeId(targetId, typeId);
+            Optional<Type> comment = makeUpRepository.findByTypeId(typeId);
             return new GetCommentRes(member, comment.get());
         } catch (NoSuchElementException noSuchElementException) {
             throw new NoSuchElementException(noSuchElementException.getMessage());
