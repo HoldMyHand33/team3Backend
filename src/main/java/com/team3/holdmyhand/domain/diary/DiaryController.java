@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.List;
-import java.util.Optional;
 
 @Api(tags="교환하자")
 @RestController
@@ -35,25 +34,29 @@ public class DiaryController {
     @PostMapping("")
     public ResponseEntity<CommonApiResponse<PostDiaryRes>> postDiary(@RequestBody PostDiaryReq postDiaryReq,@ApiIgnore Authentication authentication){
 
+
         String userEmail= authentication.getName();
         //optional 예외처리
         Member member=memberRepository.findByEmail(userEmail).orElseThrow();
 
         PostDiaryRes postDiaryRes=diaryService.postDiary(member.getMemberId(),postDiaryReq);
+
         return ResponseEntity.ok(CommonApiResponse.of(postDiaryRes));
         ///
+
 
 
 
     }
 
     // 친구목록 조회하기 (나를 제외한 친구목록)
+
     @ApiOperation(value = "일기목록 조회하기")
     @GetMapping("/user")
+
     public ResponseEntity<CommonApiResponse<List<GetMemberReq>>>getUserList(
             @ApiIgnore Authentication authentication
     ){
-
         // 현재 로그인 되어 이는 유저 정보 가져오기
         // 스프링 컨텍스트 홀더에 있는 이메일 정보 가져오기
         String userEmail= authentication.getName();

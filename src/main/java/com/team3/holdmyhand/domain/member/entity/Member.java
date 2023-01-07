@@ -3,10 +3,7 @@ package com.team3.holdmyhand.domain.member.entity;
 import com.team3.holdmyhand.domain.diary.entity.Diary;
 import com.team3.holdmyhand.domain.diary.entity.PostDiary;
 import com.team3.holdmyhand.global.config.entity.BaseTimeEntity;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -32,7 +29,14 @@ public class Member extends BaseTimeEntity {
 
     private String profileImg;
 
+    private String code;
+
     private String reconciliationDate;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Member parent;
+
+    @OneToMany(mappedBy = "parent", orphanRemoval = true)
+    private List<Member> memberList;
 
     @OneToMany(mappedBy="member")
     private List<PostDiary> diaryList=new ArrayList<>();
@@ -43,7 +47,8 @@ public class Member extends BaseTimeEntity {
     @Builder
     public Member(Long memberId, String nickname, String password,
                   String email, String phoneNum, String status, String profileImg,
-                  String  reconciliationDate) {
+                  String code,
+                  String reconciliationDate, Member parent, List<Member> memberList) {
         this.memberId = memberId;
         this.nickname = nickname;
         this.password = password;
@@ -51,11 +56,16 @@ public class Member extends BaseTimeEntity {
         this.phoneNum = phoneNum;
         this.status = status;
         this.profileImg = profileImg;
+        this.code = code;
         this.reconciliationDate = reconciliationDate;
+        this.parent = parent;
+        this.memberList = memberList;
     }
     public void updateReconciliationDate(String reconciliationDate) {
         this.reconciliationDate = reconciliationDate;
     }
 
-
+    public void updateParent(Member parent) {
+        this.parent = parent;
+    }
 }
