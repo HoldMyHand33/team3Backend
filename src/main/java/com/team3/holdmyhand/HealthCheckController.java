@@ -14,4 +14,9 @@ public class HealthCheckController {
     public CommonApiResponse<Boolean> healthCheck() {
         return CommonApiResponse.of(true);
     }
+
+    @GetMapping("/")
+    public String index() throws Exception {
+        return "hi!";
+    }
 }
