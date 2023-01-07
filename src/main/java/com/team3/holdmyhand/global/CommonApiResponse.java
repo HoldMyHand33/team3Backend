@@ -27,7 +27,7 @@ public class CommonApiResponse<T> {
     }
 
     /**
-     * Http Response 를 내보낼 때 사용, 데이터를 Json 형식으로 만든다
+     * Http Response 를 내보낼 때 사용, 데이터를 Json 형식으로 만든다s
      * 추가적으로 status code도 지정한다
      * @param data 내보낼 데이터
      * @param status 응답 status code 지정

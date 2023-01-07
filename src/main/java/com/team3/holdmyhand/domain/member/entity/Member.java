@@ -42,4 +42,6 @@ public class Member extends BaseTimeEntity {
         this.status = status;
         this.profileImg = profileImg;
     }
+
+
 }
