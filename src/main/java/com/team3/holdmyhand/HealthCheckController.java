@@ -14,5 +14,4 @@ public class HealthCheckController {
     public CommonApiResponse<Boolean> healthCheck() {
         return CommonApiResponse.of(true);
     }
-
 }
