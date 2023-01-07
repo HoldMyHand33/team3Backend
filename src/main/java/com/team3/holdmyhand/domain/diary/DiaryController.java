@@ -55,6 +55,8 @@ public class DiaryController {
         List<GetMemberReq> getMemberReqList=diaryService.getMemberList(userIdx);
 
         return ResponseEntity.ok(CommonApiResponse.of(getMemberReqList));
+
+        ///
     }
 
 
