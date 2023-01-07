@@ -5,6 +5,8 @@ import com.team3.holdmyhand.domain.question.entity.Question;
 import com.team3.holdmyhand.global.CommonApiResponse;
 import com.team3.holdmyhand.global.error.GlobalExceptionHandler;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class QuestionController {
     private final QuestionService questionService;
 
-    @GetMapping("{day}")
+    /* 질문 받아오기 API */
+    @GetMapping("/{day}")
     @ApiOperation(value = "날짜별 질문 받아오기")
     public ResponseEntity<CommonApiResponse<GetQuestionRes>> getQuestion(@PathVariable int day) {
         return ResponseEntity.ok(CommonApiResponse.of(questionService.findQuestionByQuestionDay(day)));
