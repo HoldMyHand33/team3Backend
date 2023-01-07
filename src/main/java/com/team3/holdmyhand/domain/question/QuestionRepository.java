@@ -1,4 +1,4 @@
-package com.team3.holdmyhand.domain.question.repository;
+package com.team3.holdmyhand.domain.question;
 
 import com.team3.holdmyhand.domain.question.dto.GetQuestionRes;
 import com.team3.holdmyhand.domain.question.entity.Question;
