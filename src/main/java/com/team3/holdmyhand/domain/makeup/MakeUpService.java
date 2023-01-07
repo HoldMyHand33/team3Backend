@@ -2,6 +2,7 @@ package com.team3.holdmyhand.domain.makeup;
 
 import com.team3.holdmyhand.domain.makeup.dto.GetCommentRes;
 import com.team3.holdmyhand.domain.makeup.dto.GetTargetsRes;
+import com.team3.holdmyhand.domain.makeup.dto.GetTypesRes;
 import com.team3.holdmyhand.domain.makeup.entity.Target;
 import com.team3.holdmyhand.domain.makeup.entity.Type;
 import com.team3.holdmyhand.domain.makeup.repository.TargetRepository;
@@ -26,6 +27,7 @@ public class MakeUpService {
     private final TargetRepository targetRepository;
     private final MemberRepository memberRepository;
 
+    /* 대상 카테고리 반환하기 */
     @Transactional
     public List<GetTargetsRes> getTargets(String email) {
         try {
@@ -38,6 +40,25 @@ public class MakeUpService {
                     .map(d -> GetTargetsRes.builder()
                             .targetId(d.getTargetId())
                             .targetText(d.getTarget()).build())
+                    .collect(Collectors.toList());
+        } catch (NoSuchElementException noSuchElementException) {
+            throw new NoSuchElementException(noSuchElementException.getMessage());
+        }
+    }
+
+    /* 유형 카테고리 반환하기 */
+    @Transactional
+    public List<GetTypesRes> getTypes(String email, int targetId) {
+        try {
+            Member member = memberRepository.findByEmail(email)
+                    .orElseThrow(() -> new BadRequestException(ErrorCode.MEMBER_NOT_FOUND));
+
+            List<Type> types = typeRepository.findAllByTargetId(targetId);
+
+            return types.stream()
+                    .map(d -> GetTypesRes.builder()
+                            .typeId(d.getTypeId())
+                            .typeText(d.getType()).build())
                     .collect(Collectors.toList());
         } catch (NoSuchElementException noSuchElementException) {
             throw new NoSuchElementException(noSuchElementException.getMessage());

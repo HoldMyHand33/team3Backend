@@ -11,5 +11,6 @@ import java.util.Optional;
 @Repository
 public interface TypeRepository extends JpaRepository<Type, Integer> {
     Optional<Type> findByTypeId(int typeId);
+    List<Type> findAllByTargetId(int targetId);
 
 }

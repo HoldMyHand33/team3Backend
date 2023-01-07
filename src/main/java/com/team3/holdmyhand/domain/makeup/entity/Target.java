@@ -7,10 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -22,6 +21,9 @@ public class Target extends BaseTimeEntity {
     private String target;
     @ColumnDefault("A")
     private String status;
+
+    @OneToMany(mappedBy = "type")
+    private final List<Type> type = new ArrayList<>();
 
     @Builder
     public Target(int targetId, String target, String status) {
