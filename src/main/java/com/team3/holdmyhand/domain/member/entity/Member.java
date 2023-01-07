@@ -49,4 +49,6 @@ public class Member extends BaseTimeEntity {
     public void updateReconciliationDate(String reconciliationDate) {
         this.reconciliationDate = reconciliationDate;
     }
+
+
 }
