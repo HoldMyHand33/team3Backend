@@ -31,9 +31,12 @@ public class Member extends BaseTimeEntity {
 
     private String profileImg;
 
+    private String reconciliationDate;
+
     @Builder
     public Member(Long memberId, String nickname, String password,
-                  String email, String phoneNum, String status, String profileImg) {
+                  String email, String phoneNum, String status, String profileImg,
+                  String  reconciliationDate) {
         this.memberId = memberId;
         this.nickname = nickname;
         this.password = password;
@@ -41,6 +44,10 @@ public class Member extends BaseTimeEntity {
         this.phoneNum = phoneNum;
         this.status = status;
         this.profileImg = profileImg;
+        this.reconciliationDate = reconciliationDate;
+    }
+    public void updateReconciliationDate(String reconciliationDate) {
+        this.reconciliationDate = reconciliationDate;
     }
 
 
