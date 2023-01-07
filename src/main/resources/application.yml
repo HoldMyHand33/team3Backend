@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://awseb-e-grqw2ijm82-stack-awsebrdsdatabase-cqrqezwadurf.ccauxoeq2jfo.ap-northeast-2.rds.amazonaws.com:3306
+    url: jdbc:mysql://awseb-e-grqw2ijm82-stack-awsebrdsdatabase-cqrqezwadurf.ccauxoeq2jfo.ap-northeast-2.rds.amazonaws.com:3306/holdMyHand
     username: holdMyHand
     password: rejin0421
   jpa:
