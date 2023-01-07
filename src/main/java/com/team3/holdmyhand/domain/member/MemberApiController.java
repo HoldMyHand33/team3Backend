@@ -1,7 +1,6 @@
 package com.team3.holdmyhand.domain.member;
 
 import com.team3.holdmyhand.domain.member.dto.*;
-import com.team3.holdmyhand.domain.member.entity.Member;
 import com.team3.holdmyhand.global.CommonApiResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -63,5 +62,12 @@ public class MemberApiController {
     public ResponseEntity<CommonApiResponse<List<MemberResponseDto>>> showFriends(
             @ApiIgnore Authentication authentication) {
         return ResponseEntity.ok(CommonApiResponse.of(memberService.showFriends(authentication.getName())));
+    }
+
+    @PostMapping("email")
+    @ApiOperation("이메일 중복")
+    public ResponseEntity<CommonApiResponse<Boolean>> validateEmail(
+        @RequestBody ValidateEmail validateEmail) {
+        return ResponseEntity.ok(CommonApiResponse.of(memberService.validateEmail(validateEmail)));
     }
 }

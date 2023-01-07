@@ -1,7 +1,6 @@
 package com.team3.holdmyhand.domain.member;
 
 import com.team3.holdmyhand.domain.member.dto.*;
-import com.team3.holdmyhand.domain.member.entity.Friend;
 import com.team3.holdmyhand.domain.member.entity.Member;
 import com.team3.holdmyhand.global.CommonApiResponse;
 import com.team3.holdmyhand.global.config.security.dto.TokenResponseDto;
@@ -104,5 +103,10 @@ public class MemberService {
         return member.getMemberList().stream()
                 .map(MemberResponseDto::of)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public Boolean validateEmail(ValidateEmail validateEmail) {
+        return memberRepository.existsByEmail(validateEmail.getEmail());
     }
 }

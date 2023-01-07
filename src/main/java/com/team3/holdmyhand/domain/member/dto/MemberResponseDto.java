@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL) //NULL 필드 가림
 public class MemberResponseDto {
+    private Long memberId;
     private String nickname;
     private String email;
     private String password;
@@ -49,6 +50,7 @@ public class MemberResponseDto {
         //일자수 차이
 
         return MemberResponseDto.builder()
+                .memberId(member.getMemberId())
                 .nickname(member.getNickname())
                 .email(member.getEmail())
                 .password(member.getPassword())
@@ -59,6 +61,7 @@ public class MemberResponseDto {
     }
     public static MemberResponseDto of(Member member, TokenResponseDto tokenResponseDto) {
         return MemberResponseDto.builder()
+                .memberId(member.getMemberId())
                 .nickname(member.getNickname())
                 .email(member.getEmail())
                 .password(member.getPassword())
