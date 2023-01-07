@@ -3,8 +3,6 @@ package com.team3.holdmyhand.domain.makeup;
 import com.team3.holdmyhand.domain.makeup.dto.GetCommentRes;
 import com.team3.holdmyhand.global.CommonApiResponse;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
