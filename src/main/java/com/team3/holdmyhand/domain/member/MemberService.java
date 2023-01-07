@@ -3,6 +3,7 @@ package com.team3.holdmyhand.domain.member;
 import com.team3.holdmyhand.domain.member.dto.LoginDto;
 import com.team3.holdmyhand.domain.member.dto.MemberRequestDto;
 import com.team3.holdmyhand.domain.member.dto.MemberResponseDto;
+import com.team3.holdmyhand.domain.member.dto.ReconciliationRequestDto;
 import com.team3.holdmyhand.domain.member.entity.Member;
 import com.team3.holdmyhand.global.CommonApiResponse;
 import com.team3.holdmyhand.global.config.security.dto.TokenResponseDto;
@@ -17,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
 import java.util.Optional;
 
 @Service
@@ -28,7 +30,7 @@ public class MemberService {
 
     // 일반 회원가입
     @Transactional
-    public MemberResponseDto makeMember(MemberRequestDto memberRequestDto) {
+    public MemberResponseDto makeMember(MemberRequestDto memberRequestDto) throws ParseException {
         Optional<Member> checkMember = memberRepository.findByEmail(memberRequestDto.getEmail());
         if (checkMember.isPresent()) {
             throw new BadRequestException(ErrorCode.MEMBER_ALREADY_EXIST);
@@ -60,5 +62,25 @@ public class MemberService {
         httpHeaders.add("Authorization", "Bearer " + tokenResponseDTO.getAccessToken());
 
         return new ResponseEntity<>(CommonApiResponse.of(MemberResponseDto.of(member, tokenResponseDTO)), httpHeaders, HttpStatus.OK);
+    }
+
+    // 화해 날짜 결심
+    @Transactional
+    public MemberResponseDto modReconciliationDate(String email, ReconciliationRequestDto reconciliationRequestDto) throws ParseException {
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new BadRequestException(ErrorCode.MEMBER_NOT_FOUND));
+        member.updateReconciliationDate(reconciliationRequestDto.getReconciliationDate());
+        memberRepository.save(member);
+
+        return MemberResponseDto.of(member, reconciliationRequestDto);
+    }
+
+    // 홈화면
+    @Transactional
+    MemberResponseDto showReconciliationDate(String email) throws ParseException {
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new BadRequestException(ErrorCode.MEMBER_NOT_FOUND));
+
+        return MemberResponseDto.of(member);
     }
 }
