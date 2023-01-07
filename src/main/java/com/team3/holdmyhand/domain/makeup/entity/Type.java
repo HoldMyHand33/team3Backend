@@ -19,15 +19,20 @@ public class Type extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int typeId;
+    private int targetId;
     @NotNull
     private String type;
+    @NotNull
+    private String comment;
     @ColumnDefault("A")
     private String status;
 
     @Builder
-    public Type(int typeId, String type, String status) {
+    public Type(int typeId, int targetId, String type, String comment, String status) {
         this.typeId = typeId;
+        this.targetId = targetId;
         this.type = type;
+        this.comment = comment;
         this.status = status;
     }
 }
