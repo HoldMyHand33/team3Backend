@@ -41,6 +41,7 @@ public class DiaryController {
 
         PostDiaryRes postDiaryRes=diaryService.postDiary(member.getMemberId(),postDiaryReq);
         return ResponseEntity.ok(CommonApiResponse.of(postDiaryRes));
+        ///
 
 
 
