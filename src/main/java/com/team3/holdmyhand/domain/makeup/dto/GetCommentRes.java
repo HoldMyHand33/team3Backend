@@ -10,8 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GetCommentRes {
-    @ApiModelProperty(example = "부모와 사소한 말다툼")
+    @ApiModelProperty(example = "1")
     private int commentId;
+    @ApiModelProperty(example = "부모와 사소한 말다툼")
     private String makeUpComment;
 
     public GetCommentRes(Comment comment) {

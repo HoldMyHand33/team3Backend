@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface MakeUpRepository extends JpaRepository<Comment, Integer> {
-    Optional<Comment> findByTargetIdaAndTypeId(int targetId, int typeId);
+    Optional<Comment> findCommentByTargetIdAndTypeId(int targetId, int typeId);
 }

@@ -8,14 +8,15 @@ import org.springframework.stereotype.Service;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-@Service
+
 @RequiredArgsConstructor
+@Service
 public class MakeUpService {
     private final MakeUpRepository makeUpRepository;
 
     public GetCommentRes getComment(int targetId, int typeId) {
         try {
-            Optional<Comment> comment = makeUpRepository.findByTargetIdaAndTypeId(targetId, typeId);
+            Optional<Comment> comment = makeUpRepository.findCommentByTargetIdAndTypeId(targetId, typeId);
             return new GetCommentRes(comment.get());
         } catch (NoSuchElementException noSuchElementException) {
             throw new NoSuchElementException(noSuchElementException.getMessage());
