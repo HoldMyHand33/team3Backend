@@ -51,8 +51,8 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("넘블 7조 - LuckySeven")
-                .description("넘블 7조 REST API")
+                .title("Team 3 - CMC 3th Hackerthon")
+                .description("Team 3 - REST API")
                 .version("0.1.0")
                 .build();
     }
