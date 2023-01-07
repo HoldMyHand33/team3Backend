@@ -19,7 +19,6 @@ import javax.transaction.Transactional;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-
 @RequiredArgsConstructor
 @Service
 public class MakeUpService {
@@ -30,11 +29,9 @@ public class MakeUpService {
         try {
             Member member = memberRepository.findByEmail(email)
                     .orElseThrow(() -> new BadRequestException(ErrorCode.MEMBER_NOT_FOUND));
-            Long memberId = member.getMemberId();
 
             Optional<Comment> comment = makeUpRepository.findCommentByTargetIdAndTypeId(targetId, typeId);
-
-            return new GetCommentRes(memberId, comment.get());
+            return new GetCommentRes(member, comment.get());
         } catch (NoSuchElementException noSuchElementException) {
             throw new NoSuchElementException(noSuchElementException.getMessage());
         }
