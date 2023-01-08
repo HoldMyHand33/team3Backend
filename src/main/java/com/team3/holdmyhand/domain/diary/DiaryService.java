@@ -65,9 +65,7 @@ public class DiaryService {
                 .build();
 
         return postDiaryRes;
-
-
-
+        //
     }
 
     //친구조회
