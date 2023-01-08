@@ -54,20 +54,14 @@ public class DiaryService {
                 .diaryImgURL(postDiaryReq.getDiaryImageURL())
                 .build());
 
-        postDiaryRepository.save(new PostDiary(member,partner,diary));
-        //postDiaryRepository.save(new PostDiary(partner,member,diary));
-
-
-
-        List<PostDiary> postDiaryList=postDiaryRepository.findByIdList(diary.getDiaryId());
-
-
+        PostDiary postDiary= postDiaryRepository.save(new PostDiary(member,partner,diary));
 
 
 
         PostDiaryRes postDiaryRes=PostDiaryRes.builder()
                 .diaryId(diary.getDiaryId())
-                .postDiaryList(postDiaryList)
+                .partnerId(postDiary.getPartner().getMemberId())
+                .memberId(postDiary.getMember().getMemberId())
                 .build();
 
         return postDiaryRes;
