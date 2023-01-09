@@ -13,7 +13,8 @@ import java.util.List;
 public class PostDiaryRes {
 
     private Long diaryId;
-    private List<PostDiary>postDiaryList;
+    private Long memberId;
+    private Long partnerId;
 
 
 }

@@ -13,8 +13,7 @@ import java.util.List;
 @Repository
 public interface PostDiaryRepository extends JpaRepository<PostDiary, Long> {
 
-    @Query("select pd.member.memberId from PostDiary pd where pd.postDiaryId = :idx")
-    public List<PostDiary> findByIdList(@Param("idx") Long idx);
+
 
     @Query("select pd.diary from PostDiary pd where pd.member.memberId= :memberId and pd.partner.memberId= :partnerId")
     public Diary findDiaryByMemberId(@Param("memberId")Long memberId,@Param("partnerId")Long partnerId);
