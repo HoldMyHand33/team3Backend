@@ -2,12 +2,13 @@ package com.team3.holdmyhand.domain.diary.entity;
 
 import com.team3.holdmyhand.domain.member.entity.Member;
 import lombok.Builder;
+import lombok.Getter;
 
 import javax.persistence.*;
 import java.util.Optional;
 
 @Entity
-
+@Getter
 public class PostDiary {
 
     @Id
